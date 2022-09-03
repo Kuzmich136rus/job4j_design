@@ -15,7 +15,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
     }
 
     private T[] increaseCapacity(T[] container) {
-        return Arrays.copyOf(container, container.length * 2);
+        return Arrays.copyOf(container, (container.length + 1) * 2);
     }
 
     @Override
