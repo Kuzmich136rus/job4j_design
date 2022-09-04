@@ -19,4 +19,8 @@ public class SimpleStack<T> {
         linked.addFirst(value);
         size++;
     }
+
+    public int getSize() {
+        return size;
+    }
 }
