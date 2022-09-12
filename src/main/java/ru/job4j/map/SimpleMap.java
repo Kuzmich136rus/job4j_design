@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class SimpleMap<K, V> implements Map<K, V> {
+public class                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               SimpleMap<K, V> implements Map<K, V> {
 
     private static final float LOAD_FACTOR = 0.75f;
 
@@ -59,9 +59,9 @@ public class SimpleMap<K, V> implements Map<K, V> {
         V rsl = null;
         int index = indexFor(hash(key));
         K searchKey = table[index] != null ? table[index].key : null;
-        if (hash(key) == hash(searchKey) && Objects.equals(key, searchKey)) {
-            rsl = table[index].value;
-        }
+            if (Objects.hashCode(searchKey) == Objects.hashCode(key) && Objects.equals(key, searchKey)) {
+                rsl = table[index].value;
+            }
         return rsl;
     }
 
@@ -70,12 +70,12 @@ public class SimpleMap<K, V> implements Map<K, V> {
         boolean rsl = false;
         int index = indexFor(hash(key));
         K searchKey = table[index] != null ? table[index].key : null;
-        if (hash(key) == hash(searchKey) && Objects.equals(key, searchKey)) {
-            table[index] = null;
-            rsl = true;
-            count--;
-            modCount++;
-        }
+            if (Objects.hashCode(searchKey) == Objects.hashCode(key) && Objects.equals(key, searchKey)) {
+                table[index] = null;
+                rsl = true;
+                count--;
+                modCount++;
+            }
         return rsl;
     }
 
