@@ -16,11 +16,33 @@ public class Config {
         this.path = path;
     }
 
+    private boolean checkString(String readLine) {
+        if (readLine.isBlank()) {
+            return false;
+        }
+        if (readLine.startsWith("#")) {
+            return false;
+        }
+        if (!readLine.contains("=")) {
+            throw new IllegalArgumentException(
+                    String.format("this string: %s not contain =", readLine));
+        }
+        if (readLine.startsWith("=")) {
+            throw new IllegalArgumentException(
+                    String.format("this string: %s start with =", readLine));
+        }
+        if (readLine.indexOf("=") == readLine.length() - 1) {
+            throw new IllegalArgumentException(
+                    String.format("this string: %s has not contain value", readLine));
+                }
+        return true;
+    }
+
     public void load() {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(this.path))) {
             while (bufferedReader.ready()) {
                 String readLine = bufferedReader.readLine();
-                if (!readLine.startsWith("#") && readLine.length() > 0) {
+                if (checkString(readLine)) {
                     String[] lines = readLine.split("=", 2);
                     if (lines.length != 2 || readLine.startsWith("=")) {
                         throw new IllegalArgumentException();
@@ -32,8 +54,6 @@ public class Config {
             e.printStackTrace();
         }
     }
-
-
 
     public String value(String key) {
         return values.get(key);
