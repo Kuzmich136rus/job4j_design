@@ -16,9 +16,9 @@ public class Dir {
         }
         for (File subfile : Objects.requireNonNull(file.listFiles())) {
             if (subfile.isFile()) {
-                System.out.println(subfile.getName() + " length = " + subfile.length());
+                System.out.printf("%s has length %d%n", subfile.getName(), subfile.length());
             } else {
-                System.out.println(subfile.getName() +  " length = " + subfile.length() + " but this is a folder.");
+                System.out.printf("%s - is folder and has length %d%n", subfile.getName(), subfile.length());
             }
         }
     }
