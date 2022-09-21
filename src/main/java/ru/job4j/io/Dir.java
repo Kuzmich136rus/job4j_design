@@ -7,7 +7,10 @@ import java.util.Objects;
 
 public class Dir {
     public static void main(String[] args) {
-        File file = new File("c:\\projects");
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
+        }
+        File file = new File(args[0]); //"c:\\projects"
         if (!file.exists()) {
             throw new IllegalArgumentException(String.format("Not exist %s", file.getAbsoluteFile()));
         }
