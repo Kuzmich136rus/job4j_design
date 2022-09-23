@@ -8,9 +8,12 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        String[] param = dir(args);
+        if (args.length != 2) {
+            throw new IllegalArgumentException("Not all arguments are specified");
+        }
+        dir(args);
         Path start = Paths.get(args[0]);
-        search(start, p -> p.toFile().getName().endsWith("." + param[1])).forEach(System.out::println);
+        search(start, p -> p.toFile().getName().endsWith(args[1])).forEach(System.out::println);
     }
 
     public static List<Path> search(Path root, Predicate<Path> condition) throws IOException {
@@ -19,14 +22,17 @@ public class Search {
         return searcher.getPaths();
     }
 
-    private static String[] dir(String[] args) {
-        if (args.length != 2) {
-            throw new IllegalArgumentException("Not all arguments are specified");
-        }
+    private static void dir(String[] args) {
         Path start = Paths.get(args[0]);
+        Path finish = Paths.get(args[1]);
+        if (!start.isAbsolute()) {
+            throw new IllegalArgumentException("Is wrong way");
+        }
         if (start.toFile().isFile()) {
             throw new IllegalArgumentException("File can not be a directory");
         }
-        return args;
+        if (!finish.startsWith(".")) {
+            throw new IllegalArgumentException("Incorrect file extension");
+        }
     }
 }
